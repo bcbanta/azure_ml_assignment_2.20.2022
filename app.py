@@ -37,34 +37,34 @@ def predict():
     
     return "1"
     
-    payload = request.json
-    for column, dummy_columns in dummy_column_mapper.items():
-        for dummy_column in dummy_columns:
-            payload[dummy_column] = 0
-        if column in payload:
-            column_val = payload.pop(column)
-            target_column = f'{column}_{column_val}'
-            payload[target_column] = 1
+#     payload = request.json
+#     for column, dummy_columns in dummy_column_mapper.items():
+#         for dummy_column in dummy_columns:
+#             payload[dummy_column] = 0
+#         if column in payload:
+#             column_val = payload.pop(column)
+#             target_column = f'{column}_{column_val}'
+#             payload[target_column] = 1
 
-    for key, scaler_params in scaler_info.items():
-        if key in payload:
-            payload[key] = (payload[key] - scaler_params['mean'])/scaler_params['std']
-        else:
-            payload[key] = scaler_params['mean']
+#     for key, scaler_params in scaler_info.items():
+#         if key in payload:
+#             payload[key] = (payload[key] - scaler_params['mean'])/scaler_params['std']
+#         else:
+#             payload[key] = scaler_params['mean']
 
-    ordered_payload = {}
-    for col in col_order:
-        ordered_payload[col] = payload[col]
+#     ordered_payload = {}
+#     for col in col_order:
+#         ordered_payload[col] = payload[col]
     
-    log_prediction = int(log_clf.predict(np.array(list(ordered_payload.values())).reshape(1, -1)))
-    tree_prediction = int(tree_clf.predict(np.array(list(ordered_payload.values())).reshape(1, -1)))
-    rf_prediction = int(rf_clf.predict(np.array(list(ordered_payload.values())).reshape(1, -1)))
-    ada_prediction = int(ada_clf.predict(np.array(list(ordered_payload.values())).reshape(1, -1)))
-    vote_prediction = int(vote_clf.predict(np.array(list(ordered_payload.values())).reshape(1, -1)))
+#     log_prediction = int(log_clf.predict(np.array(list(ordered_payload.values())).reshape(1, -1)))
+#     tree_prediction = int(tree_clf.predict(np.array(list(ordered_payload.values())).reshape(1, -1)))
+#     rf_prediction = int(rf_clf.predict(np.array(list(ordered_payload.values())).reshape(1, -1)))
+#     ada_prediction = int(ada_clf.predict(np.array(list(ordered_payload.values())).reshape(1, -1)))
+#     vote_prediction = int(vote_clf.predict(np.array(list(ordered_payload.values())).reshape(1, -1)))
     
-    prediction_list = [log_prediction, tree_prediction, rf_prediction, ada_prediction, vote_prediction]
+#     prediction_list = [log_prediction, tree_prediction, rf_prediction, ada_prediction, vote_prediction]
     
-    prediction = int(prediction_list.count(1) > prediction_list.count(0))
+#     prediction = int(prediction_list.count(1) > prediction_list.count(0))
     
     # return str(prediction)
     # return 1
