@@ -32,7 +32,7 @@ def home():
     return 'App is Healthy'
 
 
-@app.route('/predict', methods=['POST','GET'])
+@app.route('/predict', methods=['POST'])
 def predict():
     
     return 1
