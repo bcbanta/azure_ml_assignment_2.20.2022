@@ -35,6 +35,8 @@ def home():
 @app.route('/predict', methods=['POST'])
 def predict():
     
+    return 1
+    
     payload = request.json
     for column, dummy_columns in dummy_column_mapper.items():
         for dummy_column in dummy_columns:
@@ -65,7 +67,7 @@ def predict():
     prediction = int(prediction_list.count(1) > prediction_list.count(0))
     
     # return str(prediction)
-    return 1
+    # return 1
 
 
 if __name__ == '__main__':
